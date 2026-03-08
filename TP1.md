@@ -67,7 +67,7 @@ Message
 Pour cela, il faut déclarer le type de l'objet `props` attendu par le composant.
 Dans notre cas, on peut le déclarer ainsi :
 ```ts
-interface MessageProps {
+type MessageProps = {
   msg: string
 }
 ```
