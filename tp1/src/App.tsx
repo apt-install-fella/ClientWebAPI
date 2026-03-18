@@ -1,66 +1,72 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
-type MessageProps = {
-  msg: string;
-};
+export function ItemsApp() {
+  const [items, setItems] = useState<string[]>([]);
 
-function Message({ msg }: MessageProps) {
-  return <p>{msg}</p>;
-}
+  function addItem(newItem: string) {
+    setItems([...items, newItem]); //new items at the end of the array
+  }
 
-type ToggleProps = {
-  onToggle?: (value: boolean) => void;
-};
-
-function Toggle({ onToggle }: ToggleProps) {
-  const [toggle, setToggle] = useState(false);
-
-  useEffect(() => {
-    onToggle?.(toggle);
-  }, [toggle]);
+  function removeItem(index: number) {
+    setItems(items.filter((item, i) => i != index));
+  }
 
   return (
     <div>
-      <h2>toggle is {toggle ? "ON" : "OFF"}</h2>
-      <button type="button" onClick={() => setToggle(!toggle)}>
-        change
-      </button>
+      <AddItemForm addItem={addItem} />
+      <ItemsList items={items} removeItem={removeItem} />
     </div>
   );
 }
 
-let messages = [
-  "Hello, world!",
-  "Bonjour, monde!",
-  "Hola, mundo!",
-  "Hallo, Welt!",
-  "Ciao, mondo!",
-];
+type ItemsListProps = {
+  items: string[];
+  removeItem: (index: number) => void;
+};
 
-export default function App() {
-  const [countTrue, setCountTrue] = useState(0);
+export function ItemsList({ items, removeItem }: ItemsListProps) {
+  return (
+    <ul>
+      {items.map((item, index) => (
+        <li key={index}>
+          {item}
+          <button className="small danger" onClick={() => removeItem(index)}>
+            Supprimer
+          </button>
+        </li>
+      ))}
+    </ul>
+  );
+}
 
-  const toggleChanged = (value: boolean) => {
-    if (value) setCountTrue((prev) => prev + 1); // increm que si TRUE
+type AddItemFormProps = {
+  addItem: (item: string) => void;
+};
+
+function AddItemForm({ addItem }: AddItemFormProps) {
+  const handleSubmit: SubmitEventHandler<HTMLFormElement> = function (event) {
+    //Tu crées une fonction handleSubmit-> appeler a chaque envoie du form
+    event.preventDefault();
+    //Empêche le comportement normal du formulaire->pas de rechargement de la page
+    const form = event.currentTarget; //le form html
+    addItem(form.item.value); //recup text tapé et donne a addItem
+    form.reset(); //vide form
   };
 
   return (
+    <form onSubmit={handleSubmit}>
+      <input name="item" type="text" />
+      {/* Tu affiches un formulaire onSubmit= {handleSubmit} → quand on envoie →
+      appelle la fonction */}
+      <button type="submit">Ajouter</button>
+    </form>
+  );
+}
+
+export default function App() {
+  return (
     <div>
-      <Message msg="Fella" />
-      <Message msg="fella" />
-      <Message msg="FELLA" />
-
-      <ul>
-        {messages.map((message, index) => (
-          <li key={index}>{message}</li>
-        ))}
-      </ul>
-
-      {/* Afficher le compteur */}
-      <p>Le Toggle est passé à true {countTrue} fois</p>
-
-      {/**appel de toggle avec la fct */}
-      <Toggle onToggle={toggleChanged} />
+      <ItemsApp />
     </div>
   );
 }
