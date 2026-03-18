@@ -1,5 +1,5 @@
 {
-  "name": "vitestart",
+  "name": "tp1",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -12,12 +12,6 @@
   "dependencies": {
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
-  },
-  "scripts": {
-  "dev": "bunx --bun vite",
-  "build": "tsc -b && bunx --bun vite build",
-  "lint": "eslint .",
-  "preview": "bunx --bun vite preview"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.1",
