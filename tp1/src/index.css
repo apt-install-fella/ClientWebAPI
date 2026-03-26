@@ -6,8 +6,8 @@
 
   box-sizing: border-box;
 
-  color: rgba(60, 60, 60, 0.87);
-  background-color: #e3e4ff;
+  color: rgba(0, 0, 0, 0.87);
+  background-color: #d0f1fd;
 }
 
 *,
@@ -23,7 +23,7 @@ body {
 }
 
 hr {
-  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  border-top: 1px solid rgba(86, 46, 140, 0.4);
   margin: 1rem 0;
 }
 
@@ -49,7 +49,7 @@ select {
   font-family: inherit;
   border: 1px solid;
   border-radius: 8px;
-  border-color: rgb(72, 72, 72);
+  border-color: rgb(47, 63, 94);
   box-shadow: 0px 0px 1px rgba(0, 0, 0, 0.2);
   margin: 0;
 }
@@ -58,7 +58,7 @@ button {
   padding: 0.2rem 1rem;
   cursor: pointer;
   font-weight: 500;
-  background-color: rgb(72, 72, 72);
+  background-color: rgb(78, 129, 77);
   color: rgba(255, 255, 255, 0.87);
 }
 
@@ -142,34 +142,34 @@ ul {
   width: 100%;
 }
 
-#root>header {
+#root > header {
   border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-  background-color: #484848;
+  background-color: #311059;
   color: rgba(255, 255, 255, 0.87);
   padding: 0 1rem;
 }
 
-#root>header>h2 {
+#root > header > h2 {
   margin: 0.5rem 0;
 }
 
-#root>header>ul {
+#root > header > ul {
   list-style-type: none;
   padding: 0;
   display: inline;
 }
 
-#root>header>ul>li {
+#root > header > ul > li {
   display: inline;
   margin-right: 1rem;
   font-size: larger;
 }
 
-#root>header>ul>li>a.active {
+#root > header > ul > li > a.active {
   color: rgb(192, 224, 254);
 }
 
-#root>main {
+#root > main {
   margin: 1rem;
   flex: 1;
   display: flex;
@@ -177,9 +177,9 @@ ul {
   overflow-y: scroll;
 }
 
-#root>footer {
+#root > footer {
   border-top: 2px solid rgba(0, 0, 0, 0.4);
-  background-color: #484848;
+  background-color: #311059;
   color: rgba(255, 255, 255, 0.87);
   text-align: center;
 }
@@ -192,6 +192,8 @@ ul {
   padding-right: 1rem;
   display: flex;
   flex-direction: column;
+    background-color: #ffffff;
+
 }
 
 #sidebar form {
