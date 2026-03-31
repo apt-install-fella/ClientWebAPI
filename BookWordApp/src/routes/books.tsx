@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react";
 import type { Book } from "../types";
 import { add_Book, get_books, remove_book } from "../api";
-import BookTags from "./bookTags";
 import { NavLink, Outlet } from "react-router";
 import Pagination from "../utils/pagination";
+import type { Author } from "../types";
+import { get_authors } from "../api";
 
 export default function Books() {
   //pagination
@@ -11,6 +12,8 @@ export default function Books() {
   const [total, setTotal] = useState(0); //par defaut 0 autheur
   const pageSize = 4;
   const [books, setBooks] = useState<Book[]>([]);
+
+  const [authors, setAuthors] = useState<Author[]>([]);
 
   const [authId, setAuthId] = useState(""); //filre
 
@@ -91,6 +94,15 @@ export default function Books() {
     loadBooks();
   }, [page]);
 
+  useEffect(() => {
+    async function loadAuthors() {
+      const data = await get_authors();
+      setAuthors(data.authors);
+    }
+
+    loadAuthors();
+  }, []);
+
   return (
     <>
       <div id="sidebar">
@@ -100,14 +112,24 @@ export default function Books() {
           {" "}
           <input name="title" placeholder="titre" />
           <input name="publication_year" placeholder="annee publication" />
-          <input name="authorId" placeholder="id auteur" />{" "}
+          <select name="authorId">
+            <option value="">Choisir un auteur</option>
+
+            {authors.map((author) => (
+              <option key={author.id} value={author.id}>
+                {author.firstname + " " + author.lastname}{" "}
+              </option>
+            ))}
+          </select>{" "}
           <button type="submit">Ajouter</button>
         </form>
+        ______________________________________________________ filtre:
         <form onSubmit={handleFilter}>
           <input name="filter_author_id" placeholder="Filtrer par id auteur" />
           <button type="submit">Filtrer</button>
         </form>
         {error !== "" && <p className="error">{error}</p>}
+        ______________________________________________________
         <ul>
           {books.map((book) => (
             <li key={book.id}>
@@ -124,7 +146,6 @@ export default function Books() {
             </li>
           ))}
         </ul>
-
         <Pagination
           page={page}
           pageSize={pageSize}
