@@ -4,14 +4,17 @@ import {
   get_all_tags,
   add_tag_to_book,
   remove_tag_from_book,
+  create_tag,
 } from "../api";
+import type { Tag } from "../types";
 
 export default function BookTags({ bookId }: { bookId: number }) {
-  const [tags, setTags] = useState([]);
-  const [allTags, setAllTags] = useState([]);
+  const [tags, setTags] = useState<Tag[]>([]);
+  const [allTags, setAllTags] = useState<Tag[]>([]);
   const [loadingTags, setLoadingTags] = useState(true);
   const [loadingAllTags, setLoadingAllTags] = useState(true);
   const [selectedTagId, setSelectedTagId] = useState("");
+  const [newTagName, setNewTagName] = useState("");
   const [error, setError] = useState("");
 
   // Charger les tags du livre
@@ -53,6 +56,11 @@ export default function BookTags({ bookId }: { bookId: number }) {
     e.preventDefault();
     if (!selectedTagId) return; // aucun tag choisi
 
+    if (tags.some((t) => t.name === newTagName)) {
+      setError("Tag déjà présent");
+      return;
+    }
+
     try {
       await add_tag_to_book(bookId, Number(selectedTagId));
       setSelectedTagId("");
@@ -67,6 +75,27 @@ export default function BookTags({ bookId }: { bookId: number }) {
     try {
       await remove_tag_from_book(bookId, tagId);
       await loadTags();
+    } catch (err: any) {
+      setError(err.message);
+    }
+  }
+
+  // Creer un tag
+  async function handleCreateTag(e: React.FormEvent) {
+    e.preventDefault();
+    if (!newTagName) return;
+
+    try {
+      const newTag = await create_tag(newTagName);
+
+      // ajouter directement au livre
+      await add_tag_to_book(bookId, newTag.id);
+
+      setNewTagName("");
+
+      await loadAllTags(); // refresh liste
+      await loadTags(); // refresh tags du livre
+      
     } catch (err: any) {
       setError(err.message);
     }
@@ -109,6 +138,17 @@ export default function BookTags({ bookId }: { bookId: number }) {
           ))}
         </div>
       )}
+
+      {/* Création de tag */}
+      <form onSubmit={handleCreateTag}>
+        <input
+          type="text"
+          placeholder="Nouveau tag"
+          value={newTagName}
+          onChange={(e) => setNewTagName(e.target.value)}
+        />
+        <button type="submit">Créer</button>
+      </form>
     </div>
   );
 }
