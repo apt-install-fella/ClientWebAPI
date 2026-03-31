@@ -167,6 +167,22 @@ export async function add_book_to_author(
   }
 }
 
+export async function update_book(bookId: number, data: Partial<Book>) {
+  const res = await fetch(`http://localhost:3000/books/${bookId}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  });
+
+  if (!res.ok) {
+    throw new Error("Erreur lors de la mise à jour du livre");
+  }
+
+  return res.json();
+}
+
 //TAGSSSS
 export async function get_tags_of_book(bookId: number) {
   const res = await fetch(`${apiBasename}/books/${bookId}/tags`);

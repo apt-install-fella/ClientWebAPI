@@ -7,7 +7,7 @@
   box-sizing: border-box;
 
   color: rgba(0, 0, 0, 0.87);
-  background-color: #d0f1fd;
+  background-color: #fdd0ef;
 }
 
 *,
@@ -58,14 +58,14 @@ button {
   padding: 0.2rem 1rem;
   cursor: pointer;
   font-weight: 500;
-  background-color: rgb(78, 129, 77);
+  background-color: rgb(77, 107, 129);
   color: rgba(255, 255, 255, 0.87);
 }
 
 input,
 select {
   padding: 0.2rem 0.5rem;
-  background-color: rgb(240, 240, 240);
+  background-color: rgb(255, 236, 243);
 }
 
 input:hover,
@@ -144,7 +144,7 @@ ul {
 
 #root > header {
   border-bottom: 2px solid rgba(0, 0, 0, 0.4);
-  background-color: #311059;
+  background-color: #5e0c0c;
   color: rgba(255, 255, 255, 0.87);
   padding: 0 1rem;
 }
@@ -179,7 +179,7 @@ ul {
 
 #root > footer {
   border-top: 2px solid rgba(0, 0, 0, 0.4);
-  background-color: #311059;
+  background-color: #5e0c0c;
   color: rgba(255, 255, 255, 0.87);
   text-align: center;
 }
@@ -192,8 +192,7 @@ ul {
   padding-right: 1rem;
   display: flex;
   flex-direction: column;
-    background-color: #ffffff;
-
+  background-color: #ea9090;
 }
 
 #sidebar form {

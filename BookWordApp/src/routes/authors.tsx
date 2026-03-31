@@ -107,17 +107,20 @@ export default function Authors() {
             (
               author, //affcihe chaque autheur sous forme liste
             ) => (
-              <NavLink key={author.id} to={String(author.id)}>
-                {author.firstname} {author.lastname}
-                &nbsp;
+              <li key={author.id}>
+                <NavLink key={author.id} to={String(author.id)}>
+                  {author.firstname} {author.lastname}
+                  &nbsp;
+                </NavLink>
+
                 <button //devant chaque auteur on a un btn pour le degager
                   className="small danger"
                   onClick={() => handleRemove(author.id)}
                 >
-                  delete
+                  x
                 </button>
                 <br></br>
-              </NavLink>
+              </li>
             ),
           )}
         </ul>
