@@ -44,11 +44,22 @@ export async function delete_one(req: Request, res: Response) {
 
 // POST /tags
 export async function create_one(req: Request, res: Response) {
-  const tag = await prisma.tag.create({
-    data: req.body,
-  });
+  try {
+    console.log("BODY:", req.body);
 
-  res.status(201).json(tag);
+    const tag = await prisma.tag.create({
+      data: req.body,
+    });
+
+    return res.status(201).json(tag);
+  } catch (err) {
+    console.error("ERROR:", err);
+
+    return res.status(500).json({
+      message: "Erreur création tag",
+      error: String(err),
+    });
+  }
 }
 
 //GET /books/:book_id/tags : retourne la liste des tags associés au livre dont l'identifiant est :book_id

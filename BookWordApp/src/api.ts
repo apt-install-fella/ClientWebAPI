@@ -167,8 +167,6 @@ export async function add_book_to_author(
   }
 }
 
-
-
 //TAGSSSS
 export async function get_tags_of_book(bookId: number) {
   const res = await fetch(`${apiBasename}/books/${bookId}/tags`);
@@ -179,7 +177,6 @@ export async function get_tags_of_book(bookId: number) {
   return res.json();
 }
 
-
 export async function get_all_tags() {
   const res = await fetch(`${apiBasename}/tags`);
   if (!res.ok) {
@@ -188,7 +185,6 @@ export async function get_all_tags() {
   }
   return res.json();
 }
-
 
 export async function add_tag_to_book(bookId: number, tagId: number) {
   const res = await fetch(`${apiBasename}/books/${bookId}/tags`, {
@@ -203,7 +199,6 @@ export async function add_tag_to_book(bookId: number, tagId: number) {
   }
 }
 
-
 export async function remove_tag_from_book(bookId: number, tagId: number) {
   const res = await fetch(`${apiBasename}/books/${bookId}/tags/${tagId}`, {
     method: "DELETE",
@@ -215,3 +210,17 @@ export async function remove_tag_from_book(bookId: number, tagId: number) {
   }
 }
 
+export async function create_tag(name: string) {
+  const res = await fetch("http://localhost:3000/tags", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ name }),
+  });
+
+  if (!res.ok) throw new Error("Erreur création tag");
+
+  const data = await res.json();
+  return data;
+}
